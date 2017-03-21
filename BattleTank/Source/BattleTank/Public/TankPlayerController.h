@@ -25,4 +25,7 @@ private:
 	void AimTowardsCrosshair();
 	
 	virtual void BeginPlay() override;
+
+	// Return an OUT parameter, true if hit landscape
+	virtual bool GetSightRayHitLocation(FVector& HitLocation) const;
 };
