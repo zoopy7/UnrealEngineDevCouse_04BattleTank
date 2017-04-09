@@ -3,7 +3,7 @@
 #include "BattleTank.h"
 #include "TankBarrel.h"
 
-void UTankBarrel::Elevate(float DegreesPerSecond)
+void UTankBarrel::MoveTo(float Pitch)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Barrel->Elevate() called at speed %f"), DegreesPerSecond);
+	UE_LOG(LogTemp, Warning, TEXT("Moving towards pitch: %f"), Pitch);
 }
