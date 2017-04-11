@@ -5,5 +5,5 @@
 
 void UTankBarrel::MoveTo(float Pitch)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Moving towards pitch: %f"), Pitch);
+	
 }
