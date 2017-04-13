@@ -11,7 +11,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true; // TODO Should this really tick
+	PrimaryComponentTick.bCanEverTick = false; // TODO Should this really tick
 
 	// ...
 }
@@ -50,7 +50,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	if (bHaveAimSolution)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		Barrel->MoveTo(AimDirection.Rotation().Pitch);
+		MoveBarrelTowards(AimDirection);
 		auto time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Warning, TEXT("%f: Aim solutation found"), time);
 	}
@@ -58,4 +58,13 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		auto time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Warning, TEXT("%f: No aim solve found"), time);
 	}
+}
+
+void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) 
+{
+	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
+	auto AimAsRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimAsRotator - BarrelRotator;
+	Barrel->MoveTo(DeltaRotator.Pitch);
+	Turret->Rotate(DeltaRotator.Yaw);
 }
